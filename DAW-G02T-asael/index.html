@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="pageTitle">Alquiler SantaLucía - Elige tu Vehículo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header y navegación -->
+    <header class="header"> 
+        <nav class="navbar">
+
+            <!-- Logo -->
+            <div class="logo">
+                <span class="logo-oto">SANTA</span>
+                <span class="logo-q">LUCÍA</span>
+                <span class="logo-sub" data-i18n="logoSub">ALQUILER</span>
+            </div>
+
+            <!-- Menú -->   
+            <div class="nav-right">
+
+                <!-- Enlaces principales: 4 botones -->
+                <ul class="nav-menu">
+                    <li><a href="#" class="nav-link" data-i18n="vehicles">Vehículos</a></li>
+                    <li><a href="#" class="nav-link" data-i18n="locations">Ubicaciones</a></li>
+
+                    <!-- Dropdown Nosotros -->
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">
+                            <span data-i18n="about">Nosotros</span>
+                            <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-i18n="ourStory">Nuestra Historia</a></li>
+                            <li><a href="#" data-i18n="team">Equipo</a></li>
+                            <li><a href="#" data-i18n="careers">Empleos</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Dropdown Idiomas -->
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">
+                            <span data-i18n="languages">Idiomas</span>
+                            <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-lang="es">Español</a></li>
+                            <li><a href="#" data-lang="en">English</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <!-- Botón menú móvil -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+            </div>
+        </nav>
+    </header>
+
+    <!-- Menú móvil -->
+    <div class="mobile-menu" id="mobileMenu">
+        <!-- Enlaces móvil -->
+        <ul class="mobile-nav-menu">
+            <li><a href="#" class="mobile-nav-link" data-i18n="vehicles">Vehículos</a></li>
+            <li><a href="#" class="mobile-nav-link" data-i18n="locations">Ubicaciones</a></li>
+            <li><a href="#" class="mobile-nav-link" data-i18n="about">Nosotros</a></li>
+            <li><a href="#" class="mobile-nav-link" data-i18n="languages">Idiomas</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero / Carrusel -->
+    <section class="hero">
+
+        <!-- Slides del carrusel -->
+        <div class="carousel-track">
+
+            <!-- Slide 1 -->
+            <div class="hero-slide active">
+                <img src="img/foto1.jpg"
+                     alt="Familia alquilando coche en oficina"
+                     class="hero-image"
+                     loading="eager">
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="hero-slide">
+                <img src="img/foto2.jpg"
+                     alt="Flota de coches de alquiler"
+                     class="hero-image"
+                     loading="lazy">
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="hero-slide">
+                <img src="img/foto3.jpg"
+                     alt="Conduciendo coche de alquiler por montaña"
+                     class="hero-image"
+                     loading="lazy">
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="hero-slide">
+                <img src="img/KIA2.jpg"
+                     alt="SUV de alquiler frente a edificio moderno"
+                     class="hero-image"
+                     loading="lazy">
+            </div>
+
+        </div>
+
+        <!-- Overlay oscuro -->
+        <div class="hero-overlay"></div>
+
+        <!-- Texto fijo hero -->
+        <div class="hero-content">
+            <span class="hero-subtitle" data-i18n="fleet">FLOTA</span>
+            <h1 class="hero-title" data-i18n="chooseVehicle">ELIGE TU VEHÍCULO</h1>
+        </div>
+
+        <!-- Indicadores carrusel -->
+        <div class="carousel-indicators">
+            <button class="carousel-dot active" data-slide="0" aria-label="Ir a la imagen 1"></button>
+            <button class="carousel-dot" data-slide="1" aria-label="Ir a la imagen 2"></button>
+            <button class="carousel-dot" data-slide="2" aria-label="Ir a la imagen 3"></button>
+            <button class="carousel-dot" data-slide="3" aria-label="Ir a la imagen 4"></button>
+        </div>
+
+    </section>
+
+    <!-- Widget flotante derecho DESPLEGABLE -->
+    <aside class="floating-widget" id="floatingWidget">
+        <div class="widget-panel">
+            <a href="#" class="widget-item" title="Refrescar">
+                <i class="fas fa-sync-alt"></i>
+            </a>
+            <a href="#" class="widget-item" title="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a href="https://www.tiktok.com/@alquilersantalucia?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" class="widget-item" title="TikTok">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="#" class="widget-item" title="Teléfono">
+                <i class="fas fa-phone"></i>
+            </a>
+        </div>
+        <button class="widget-toggle" id="widgetToggle" aria-label="Abrir menú">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    </aside>
+
+    <!-- Filtros y categorías -->
+    <section class="filters-section">
+        <div class="filters-container">
+
+            <!-- Botones categorías -->
+            <div class="categories-wrapper">
+
+                <button class="category-btn active" data-category="all">
+                    <span data-i18n="allVehicles">Todos los Vehículos</span>
+                    <span class="count">(84)</span>
+                </button>
+
+                <button class="category-btn" data-category="ac" data-i18n="ac">Aire Acondicionado</button>
+                <button class="category-btn" data-category="automatic" data-i18n="automatic">Automático</button>
+                <button class="category-btn" data-category="compact" data-i18n="compact">Compacto</button>
+                <button class="category-btn" data-category="hybrid" data-i18n="hybrid">Híbrido</button>
+                <button class="category-btn" data-category="intermediate" data-i18n="intermediate">Intermedio</button>
+                <button class="category-btn" data-category="luxury" data-i18n="luxury">Lujo</button>
+                <button class="category-btn" data-category="mini" data-i18n="mini">Mini / Económico</button>
+                <button class="category-btn" data-category="minivan" data-i18n="minivan">Minivan</button>
+                <button class="category-btn" data-category="passenger" data-i18n="passenger">Furgoneta Pasajeros</button>
+                <button class="category-btn" data-category="station" data-i18n="station">Familiar</button>
+                <button class="category-btn" data-category="suv" data-i18n="suv">SUV</button>
+            </div>
+
+            <!-- Ordenar por -->
+            <div class="sort-wrapper">
+                <label class="sort-label" for="sortSelect" data-i18n="sortBy">Ordenar por:</label>
+                <select id="sortSelect" class="sort-select">
+                    <option value="featured" data-i18n="sortFeatured">Destacados</option>
+                    <option value="price-low" data-i18n="sortPriceLow">Precio: Menor a Mayor</option>
+                    <option value="price-high" data-i18n="sortPriceHigh">Precio: Mayor a Menor</option>
+                    <option value="name" data-i18n="sortNameAZ">Nombre A-Z</option>
+                    <option value="name-reverse" data-i18n="sortNameZA">Nombre Z-A</option>
+                </select>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========== GRID DE VEHÍCULOS (4 tarjetas en fila) ========== -->
+    <section class="vehicles-section">
+        <div class="vehicles-grid">
+
+            <!-- Coche 1 -->
+            <article class="vehicle-card">
+                <div class="vehicle-image-wrap">
+                    <img src="img/1.jpg" alt="Coche 1" class="vehicle-image">
+                </div>
+            </article>
+
+            <!-- Coche 2 -->
+            <article class="vehicle-card">
+                <div class="vehicle-image-wrap">
+                    <img src="img/2.jpg" alt="Coche 2" class="vehicle-image">
+                </div>
+            </article>
+
+            <!-- Coche 3 -->
+            <article class="vehicle-card">
+                <div class="vehicle-image-wrap">
+                    <img src="img/3.jpg" alt="Coche 3" class="vehicle-image">
+                </div>
+            </article>
+
+            <!-- Coche 4 -->
+            <article class="vehicle-card">
+                <div class="vehicle-image-wrap">
+                    <img src="img/4.jpg" alt="Coche 4" class="vehicle-image">
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- ========== FOOTER / PIE DE PÁGINA ========== -->
+    <footer class="footer">
+        <div class="footer-container">
+
+            <!-- Columna 1: Empresa -->
+            <div class="footer-col footer-brand">
+                <div class="logo footer-logo">
+                    <span class="logo-oto">SANTA</span>
+                    <span class="logo-q">LUCÍA</span>
+                    <span class="logo-sub" data-i18n="logoSub">ALQUILER</span>
+                </div>
+                <p class="footer-tagline" data-i18n="footerTagline">Alquiler de vehículos con la mejor flota y atención personalizada. Muévete con libertad, estilo y confianza.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@alquilersantalucia?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" class="social-link" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-link" title="X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <!-- Columna 2: Enlaces rápidos -->
+            <div class="footer-col">
+                <h4 class="footer-title" data-i18n="footerQuickLinks">Enlaces Rápidos</h4>
+                <ul class="footer-links">
+                    <li><a href="#" data-i18n="vehicles">Vehículos</a></li>
+                    <li><a href="#" data-i18n="locations">Ubicaciones</a></li>
+                    <li><a href="#" data-i18n="ourStory">Nuestra Historia</a></li>
+                    <li><a href="#" data-i18n="team">Equipo</a></li>
+                    <li><a href="#" data-i18n="careers">Empleos</a></li>
+                    <li><a href="#" data-i18n="footerOffers">Ofertas</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 3: Servicios -->
+            <div class="footer-col">
+                <h4 class="footer-title" data-i18n="footerServices">Servicios</h4>
+                <ul class="footer-links">
+                    <li><a href="#" data-i18n="footerLongTerm">Alquiler Largo Plazo</a></li>
+                    <li><a href="#" data-i18n="footerCorporate">Corporativos</a></li>
+                    <li><a href="#" data-i18n="footerDelivery">Entrega a Domicilio</a></li>
+                    <li><a href="#" data-i18n="footerAirport">Recogida Aeropuerto</a></li>
+                    <li><a href="#" data-i18n="footerInsurance">Seguros</a></li>
+                    <li><a href="#" data-i18n="footerAssistance">Asistencia 24/7</a></li>
+                </ul>
+            </div>
+
+            <!-- Columna 4: Contacto -->
+            <div class="footer-col footer-contact">
+                <h4 class="footer-title" data-i18n="footerContact">Contacto</h4>
+                <ul class="contact-list">
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span data-i18n="footerAddress">Av. Principal 123, Centro, Madrid, España</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+34900123456">+34 900 123 456</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:info@santalucia.com">info@santalucia.com</a>
+                    </li>
+                    <li>
+                        <i class="far fa-clock"></i>
+                        <span data-i18n="footerSchedule">Lun-Sáb: 08:00 - 20:00</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Franja inferior: Legal + Copyright -->
+        <div class="footer-bottom">
+            <div class="footer-container footer-bottom-inner">
+                <p class="footer-copy">&copy; <span id="year"></span> <span data-i18n="footerCopy">SantaLucía Alquiler. Todos los derechos reservados.</span></p>
+                <ul class="footer-legal">
+                    <li><a href="#" data-i18n="footerPrivacy">Privacidad</a></li>
+                    <li><a href="#" data-i18n="footerTerms">Términos y Condiciones</a></li>
+                    <li><a href="#" data-i18n="footerCookies">Política de Cookies</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
