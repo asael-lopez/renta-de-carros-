@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santa Lucía Alquiler — Acceso</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg: #0c0c0d;
+    --panel: #141416;
+    --panel-2: #1c1c1f;
+    --line: #2a2a2e;
+    --text: #f2f0ec;
+    --muted: #9a9a9e;
+    --red: #d21f2f;
+    --red-dark: #a3161f;
+  }
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #0c0c0d;
+      --text: #f2f0ec;
+    }
+  }
+  *{box-sizing:border-box;}
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    min-height: 100vh;
+    margin:0;
+    overflow-x:hidden;
+  }
+
+  /* ---------- Brand header ---------- */
+  .brand-mark{
+    font-family:'Playfair Display', serif;
+    line-height:1;
+  }
+  .brand-mark .top{
+    font-size:1.6rem;
+    letter-spacing:.03em;
+    color:var(--text);
+    display:block;
+  }
+  .brand-mark .bottom{
+    font-size:1.6rem;
+    letter-spacing:.03em;
+    color:var(--red);
+    display:block;
+  }
+  .brand-mark .tag{
+    font-family:'Inter',sans-serif;
+    font-size:.62rem;
+    letter-spacing:.35em;
+    color: var(--muted);
+    margin-top:.3rem;
+    display:block;
+  }
+
+  /* ---------- Layout ---------- */
+  .wrap{
+    min-height:100vh;
+    display:flex;
+  }
+  .stage{
+    position:relative;
+    flex:1.1;
+    overflow:hidden;
+    background:#0a0a0b;
+  }
+
+  /* ---------- Carrusel de fotos ---------- */
+  .carousel{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+  }
+  .carousel-track{
+    position:relative;
+    width:100%;
+    height:100%;
+  }
+  .carousel-slide{
+    position:absolute;
+    inset:0;
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    opacity:0;
+    transform:scale(1.03);
+    transition: opacity .8s ease, transform 2.2s ease-out;
+    will-change: opacity, transform;
+  }
+  .carousel-slide.active{
+    opacity:1;
+    transform:scale(1);
+  }
+  .carousel-overlay{
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(90deg, rgba(8,8,9,.82) 0%, rgba(8,8,9,.55) 38%, rgba(8,8,9,.25) 65%, rgba(8,8,9,.1) 100%),
+      linear-gradient(0deg, rgba(8,8,9,.35) 0%, transparent 45%);
+    pointer-events:none;
+  }
+
+  /* Contenido superpuesto al carrusel */
+  .stage-content{
+    position:relative;
+    z-index:2;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:3rem;
+  }
+  .stage-copy{
+    position:relative;
+    z-index:2;
+    max-width: 460px;
+  }
+  .stage-copy .eyebrow{
+    color: var(--red);
+    font-weight:600;
+    font-size:.85rem;
+    letter-spacing:.05em;
+    margin-bottom:.75rem;
+  }
+  .stage-copy h1{
+    font-family:'Playfair Display', serif;
+    font-size:2.6rem;
+    line-height:1.15;
+    margin-bottom:1rem;
+  }
+  .stage-copy p{
+    color: var(--muted);
+    font-size:1.02rem;
+    line-height:1.6;
+  }
+  .stat-row{
+    position:relative;
+    display:flex;
+    gap:2.5rem;
+    padding-top:2rem;
+    border-top:1px solid var(--line);
+    margin-top:2rem;
+  }
+  .stat-row div strong{
+    display:block;
+    font-family:'Playfair Display', serif;
+    font-size:1.6rem;
+  }
+  .stat-row div span{
+    color:var(--muted);
+    font-size:.8rem;
+  }
+
+  .panel-side{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 2.5rem 2rem;
+    background: var(--bg);
+  }
+  .card-auth{
+    width:100%;
+    max-width:400px;
+  }
+  .card-auth .brand-mobile{
+    display:none;
+    margin-bottom:2rem;
+  }
+
+  .tabs{
+    display:flex;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:4px;
+    margin-bottom:2rem;
+    background: var(--panel);
+  }
+  .tabs button{
+    flex:1;
+    border:none;
+    background:transparent;
+    color: var(--muted);
+    font-weight:600;
+    font-size:.92rem;
+    padding:.65rem 0;
+    border-radius:7px;
+    transition: background .18s ease, color .18s ease;
+    cursor:pointer;
+  }
+  .tabs button.active{
+    background: var(--red);
+    color:#fff;
+  }
+
+  h2.form-title{
+    font-family:'Playfair Display', serif;
+    font-size:1.7rem;
+    margin-bottom:.35rem;
+  }
+  .form-sub{
+    color:var(--muted);
+    font-size:.9rem;
+    margin-bottom:1.75rem;
+  }
+
+  .form-label{
+    color: var(--text);
+    font-size:.82rem;
+    font-weight:500;
+    margin-bottom:.4rem;
+  }
+  .form-control{
+    background: var(--panel-2);
+    border:1px solid var(--line);
+    color: var(--text);
+    padding:.7rem .9rem;
+    border-radius:8px;
+  }
+  .form-control::placeholder{ color:#6c6c70; }
+  .form-control:focus{
+    background: var(--panel-2);
+    color: var(--text);
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(210,31,47,.18);
+  }
+  .pass-wrap{ position:relative; }
+  .pass-toggle{
+    position:absolute;
+    right:.8rem; top:50%; transform:translateY(-50%);
+    background:none; border:none;
+    color:var(--muted);
+    font-size:.78rem;
+    cursor:pointer;
+    padding:0;
+  }
+  .pass-toggle:hover{ color: var(--text); }
+
+  .field-error{
+    color:#ff8a8a;
+    font-size:.78rem;
+    margin-top:.35rem;
+    display:none;
+  }
+  .form-control.is-invalid ~ .field-error,
+  .pass-wrap.is-invalid .field-error{
+    display:block;
+  }
+  .form-control.is-invalid{
+    border-color:#ff8a8a;
+  }
+
+  .btn-brand{
+    background: var(--red);
+    border:none;
+    color:#fff;
+    font-weight:600;
+    padding:.75rem 0;
+    border-radius:8px;
+    width:100%;
+    transition: background .18s ease, transform .05s ease;
+  }
+  .btn-brand:hover{ background: var(--red-dark); color:#fff; }
+  .btn-brand:active{ transform: scale(.99); }
+
+  .row-between{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:1rem 0 1.5rem;
+    font-size:.85rem;
+  }
+  .row-between a{
+    color: var(--muted);
+    text-decoration:none;
+  }
+  .row-between a:hover{ color: var(--red); }
+  .form-check-label{ color: var(--muted); font-size:.85rem; }
+  .form-check-input{
+    background-color: var(--panel-2);
+    border-color: var(--line);
+  }
+  .form-check-input:checked{
+    background-color: var(--red);
+    border-color: var(--red);
+  }
+
+  .divider{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    color: var(--muted);
+    font-size:.78rem;
+    margin: 1.75rem 0 1.25rem;
+  }
+  .divider::before, .divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background: var(--line);
+  }
+
+  .switch-line{
+    text-align:center;
+    color: var(--muted);
+    font-size:.88rem;
+    margin-top:1.75rem;
+  }
+  .switch-line button{
+    background:none; border:none;
+    color: var(--red);
+    font-weight:600;
+    cursor:pointer;
+    padding:0;
+  }
+
+  .success-box{
+    display:none;
+    text-align:center;
+    padding: 2rem 0;
+  }
+  .success-box .icon{
+    width:56px;height:56px;border-radius:50%;
+    background: rgba(210,31,47,.14);
+    color: var(--red);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 1.25rem;
+    font-size:1.5rem;
+  }
+  .success-box h3{
+    font-family:'Playfair Display', serif;
+    margin-bottom:.4rem;
+  }
+  .success-box p{ color: var(--muted); font-size:.9rem; }
+
+  form.hidden{ display:none; }
+
+  @media (max-width: 900px){
+    .stage{ display:none; }
+    .card-auth .brand-mobile{ display:block; }
+    .panel-side{ padding: 3rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <!-- Panel izquierdo: carrusel + identidad de marca -->
+  <div class="stage">
+    <!-- Carrusel automático de fotos -->
+    <div class="carousel">
+      <div class="carousel-track">
+        <div class="carousel-slide active" style="background-image: url('img/foto1.jpg');"></div>
+        <div class="carousel-slide" style="background-image: url('img/carro1.jpg');"></div>
+        <div class="carousel-slide" style="background-image: url('img/foto2.jpg');"></div>
+        <div class="carousel-slide" style="background-image: url('img/carro2.jpg');"></div>
+        <div class="carousel-slide" style="background-image: url('img/foto3.jpg');"></div>
+      </div>
+      <div class="carousel-overlay"></div>
+    </div>
+
+    <!-- Contenido superpuesto (marca + copy) -->
+    <div class="stage-content">
+      <div class="brand-mark">
+        <span class="top">SANTA</span>
+        <span class="bottom">LUCÍA</span>
+        <span class="tag">ALQUILER</span>
+      </div>
+
+      <div class="stage-copy">
+        <div class="eyebrow">NUESTRA SUCURSAL</div>
+        <h1>Tu próximo viaje empieza con las llaves en la mano.</h1>
+        <p>Reserva compactos, SUV, híbridos y furgonetas en minutos. Gestiona tus reservas y tu historial desde una sola cuenta.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel derecho: formulario -->
+  <div class="panel-side">
+    <div class="card-auth">
+
+      <div class="brand-mark brand-mobile">
+        <span class="top">SANTA</span>
+        <span class="bottom">LUCÍA</span>
+        <span class="tag">ALQUILER</span>
+      </div>
+
+      <div class="tabs">
+        <button type="button" id="tabLogin" class="active" onclick="showForm('login')">Iniciar sesión</button>
+        <button type="button" id="tabRegister" onclick="showForm('register')">Crear cuenta</button>
+      </div>
+
+      <!-- ÉXITO -->
+      <div class="success-box" id="successBox">
+        <div class="icon">✓</div>
+        <h3 id="successTitle">Bienvenido de nuevo</h3>
+        <p id="successMsg">Has iniciado sesión correctamente.</p>
+      </div>
+
+      <!-- LOGIN -->
+      <form id="loginForm" novalidate>
+        <h2 class="form-title">Iniciar sesión</h2>
+        <p class="form-sub">Accede para gestionar tus reservas.</p>
+
+        <div class="mb-3">
+          <label class="form-label" for="loginEmail">Correo electrónico</label>
+          <input type="email" class="form-control" id="loginEmail" placeholder="tucorre@gmail.com" required>
+          <div class="field-error">Ingresa un correo válido.</div>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label" for="loginPass">Contraseña</label>
+          <div class="pass-wrap">
+            <input type="password" class="form-control" id="loginPass" placeholder="••••••••" required minlength="6">
+            <button type="button" class="pass-toggle" data-target="loginPass">Mostrar</button>
+            <div class="field-error">La contraseña debe tener al menos 6 caracteres.</div>
+          </div>
+        </div>
+
+        <div class="row-between">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="rememberMe">
+            <label class="form-check-label" for="rememberMe">Recordarme</label>
+          </div>
+          <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button type="submit" class="btn-brand">Iniciar sesión</button>
+
+        <p class="switch-line">¿No tienes cuenta? <button type="button" onclick="showForm('register')">Regístrate</button></p>
+      </form>
+
+      <!-- REGISTRO -->
+      <form id="registerForm" class="hidden" novalidate>
+        <h2 class="form-title">Crear cuenta</h2>
+        <p class="form-sub">Regístrate para reservar tu vehículo.</p>
+
+        <div class="mb-3">
+          <label class="form-label" for="regName">Nombre completo</label>
+          <input type="text" class="form-control" id="regName" placeholder="Nombre y apellido" required>
+          <div class="field-error">Ingresa tu nombre.</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="regEmail">Correo electrónico</label>
+          <input type="email" class="form-control" id="regEmail" placeholder="tucorre@gmail.com" required>
+          <div class="field-error">Ingresa un correo válido.</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="regPhone">Teléfono</label>
+          <input type="tel" class="form-control" id="regPhone" placeholder="00000000" required>
+          <div class="field-error">Ingresa un número de teléfono.</div>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label" for="regPass">Contraseña</label>
+          <div class="pass-wrap">
+            <input type="password" class="form-control" id="regPass" placeholder="Mínimo 6 caracteres" required minlength="6">
+            <button type="button" class="pass-toggle" data-target="regPass">Mostrar</button>
+            <div class="field-error">La contraseña debe tener al menos 6 caracteres.</div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="regPass2">Confirmar contraseña</label>
+          <div class="pass-wrap">
+            <input type="password" class="form-control" id="regPass2" placeholder="Repite la contraseña" required>
+            <button type="button" class="pass-toggle" data-target="regPass2">Mostrar</button>
+            <div class="field-error">Las contraseñas no coinciden.</div>
+          </div>
+        </div>
+
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="acceptTerms" required>
+          <label class="form-check-label" for="acceptTerms">Acepto los términos y la política de privacidad</label>
+        </div>
+
+        <button type="submit" class="btn-brand">Crear cuenta</button>
+
+        <p class="switch-line">¿Ya tienes cuenta? <button type="button" onclick="showForm('login')">Inicia sesión</button></p>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ---------- Cambio de pestaña login / registro ----------
+  function showForm(which){
+    const login = document.getElementById('loginForm');
+    const register = document.getElementById('registerForm');
+    const tabLogin = document.getElementById('tabLogin');
+    const tabRegister = document.getElementById('tabRegister');
+    const success = document.getElementById('successBox');
+
+    success.style.display = 'none';
+
+    if(which === 'login'){
+      login.classList.remove('hidden');
+      login.style.display = '';
+      register.classList.add('hidden');
+      tabLogin.classList.add('active');
+      tabRegister.classList.remove('active');
+    } else {
+      register.classList.remove('hidden');
+      register.style.display = '';
+      login.classList.add('hidden');
+      tabRegister.classList.add('active');
+      tabLogin.classList.remove('active');
+    }
+  }
+
+  // ---------- Mostrar / ocultar contraseña ----------
+  document.querySelectorAll('.pass-toggle').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const input = document.getElementById(btn.dataset.target);
+      const isPass = input.type === 'password';
+      input.type = isPass ? 'text' : 'password';
+      btn.textContent = isPass ? 'Ocultar' : 'Mostrar';
+    });
+  });
+
+  function setInvalid(el, invalid){
+    el.classList.toggle('is-invalid', invalid);
+  }
+
+  // ---------- Validación + envío: LOGIN ----------
+  document.getElementById('loginForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = document.getElementById('loginEmail');
+    const pass = document.getElementById('loginPass');
+    const passWrap = pass.closest('.pass-wrap');
+
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+    const passOk = pass.value.length >= 6;
+
+    setInvalid(email, !emailOk);
+    passWrap.classList.toggle('is-invalid', !passOk);
+
+    if(emailOk && passOk){
+      try { sessionStorage.setItem('usuario', email.value.trim()); } catch(e){}
+      window.location.href = 'index.html';
+    }
+  });
+
+  // ---------- Helpers para datos de usuario (compatibles con script.js) ----------
+  function getUserKey(email) {
+    return 'user_data_' + btoa(unescape(encodeURIComponent(email || ''))).replace(/=/g, '');
+  }
+
+  function loadUserData(email) {
+    if (!email) return null;
+    try {
+      var raw = localStorage.getItem(getUserKey(email));
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function saveUserData(email, data) {
+    if (!email) return;
+    try {
+      localStorage.setItem(getUserKey(email), JSON.stringify(data));
+    } catch (e) {}
+  }
+
+  // ---------- Validación + envío: REGISTRO ----------
+  document.getElementById('registerForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('regName');
+    const email = document.getElementById('regEmail');
+    const phone = document.getElementById('regPhone');
+    const pass = document.getElementById('regPass');
+    const pass2 = document.getElementById('regPass2');
+    const terms = document.getElementById('acceptTerms');
+    const passWrap = pass.closest('.pass-wrap');
+    const pass2Wrap = pass2.closest('.pass-wrap');
+
+    const nameOk = name.value.trim().length > 1;
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+    const phoneOk = phone.value.trim().length >= 7;
+    const passOk = pass.value.length >= 6;
+    const matchOk = pass2.value === pass.value && pass2.value.length > 0;
+
+    setInvalid(name, !nameOk);
+    setInvalid(email, !emailOk);
+    setInvalid(phone, !phoneOk);
+    passWrap.classList.toggle('is-invalid', !passOk);
+    pass2Wrap.classList.toggle('is-invalid', !matchOk);
+
+    if(nameOk && emailOk && phoneOk && passOk && matchOk && terms.checked){
+      const emailTrim = email.value.trim();
+      const existing = loadUserData(emailTrim);
+      const userData = existing || {
+        email: emailTrim,
+        name: name.value.trim(),
+        phone: phone.value.trim(),
+        avatar: ''
+      };
+      if (!existing) {
+        saveUserData(emailTrim, userData);
+      } else {
+        if (!existing.name) existing.name = name.value.trim();
+        if (!existing.phone) existing.phone = phone.value.trim();
+        saveUserData(emailTrim, existing);
+      }
+
+      this.style.display = 'none';
+      document.getElementById('successTitle').textContent = '¡Cuenta creada!';
+      document.getElementById('successMsg').textContent = 'Bienvenido a Santa Lucía, ' + name.value.trim().split(' ')[0] + '. Ya puedes iniciar sesión.';
+      document.getElementById('successBox').style.display = 'block';
+    }
+  });
+
+  // ---------- Carrusel automático de fotos ----------
+  (function(){
+    const slides = document.querySelectorAll('.carousel-slide');
+    if(!slides || slides.length === 0) return;
+
+    let current = 0;
+    const INTERVAL = 2000;
+
+    function render(){
+      slides.forEach(function(s, i){ s.classList.toggle('active', i === current); });
+    }
+
+    function carouselTo(i){
+      current = (i + slides.length) % slides.length;
+      render();
+    }
+
+    // Cargar imágenes antes de mostrar
+    slides.forEach(function(s){
+      const bg = s.style.backgroundImage || '';
+      const urlMatch = bg.match(/url\(['"]?([^'")]+)['"]?\)/);
+      if(urlMatch){
+        const img = new Image();
+        img.src = urlMatch[1];
+      }
+    });
+
+    // Autoplay continuo (sin pausa ni interacción)
+    setInterval(function(){ carouselTo(current + 1); }, INTERVAL);
+  })();
+</script>
+</body>
+</html>
