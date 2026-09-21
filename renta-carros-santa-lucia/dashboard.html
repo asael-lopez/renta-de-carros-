@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SantaLucía Alquiler</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="autos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .dashboard-container {
+            max-width: 1500px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-bottom: 1px solid var(--light-gray-border);
+            padding-bottom: 20px;
+        }
+
+        .dashboard-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .role-badge {
+            background-color: var(--lime-green);
+            color: #ffffff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Tarjetas de métricas */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .metric-card {
+            background-color: #1a1a1a;
+            border: 1px solid var(--light-gray-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .metric-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: var(--radius-md);
+            background-color: rgba(220, 38, 38, 0.15);
+            color: var(--lime-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .metric-info h3 {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-bottom: 4px;
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        /* Secciones principales */
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .dashboard-card {
+            background-color: #1a1a1a;
+            border: 1px solid var(--light-gray-border);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            margin-bottom: 30px;
+        }
+
+        .card-header-title {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Tablas */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .data-table th, .data-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--light-gray-border);
+            color: #d4d4d4;
+            font-size: 0.95rem;
+        }
+
+        .data-table th {
+            color: #ffffff;
+            font-weight: 700;
+            background-color: #0a0a0a;
+        }
+
+        .status-tag {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .status-active { background-color: rgba(34, 197, 94, 0.2); color: #4ade80; }
+        .status-pending { background-color: rgba(234, 179, 8, 0.2); color: #facc15; }
+        .status-completed { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+
+        @media (max-width: 980px) {
+            .dashboard-content { grid-template-columns: 1fr; }
+            .dashboard-container { padding: 0 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="index.html" class="logo-link">
+                <div class="logo">
+                    <span class="logo-oto">SANTA</span>
+                    <span class="logo-q">LUCÍA</span>
+                    <span class="logo-sub">ALQUILER</span>
+                </div>
+            </a>
+            <div class="nav-right">
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Inicio</a></li>
+                    <li><a href="autos.html" class="nav-link">Nuestra Flota</a></li>
+                    <li><a href="dashboard.html" class="nav-link active" style="color:var(--lime-green)">Dashboard</a></li>
+                </ul>
+                <div class="user-box">
+                    <span class="user-welcome" id="dashUserDisplay">Cargando...</span>
+                    <button id="dashLogoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Salir</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido principal del Dashboard -->
+    <main class="dashboard-container">
+        
+        <div class="dashboard-header">
+            <div>
+                <h1 class="dashboard-title">Panel de Control</h1>
+                <p style="color: var(--text-gray);">Información general y estado de servicios en tiempo real.</p>
+            </div>
+            <div>
+                <span class="role-badge" id="userRoleBadge">Rol: Cliente</span>
+            </div>
+        </div>
+
+        <!-- Métrica resumidas -->
+        <section class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-car"></i></div>
+                <div class="metric-info">
+                    <h3>Vehículos Alquilados</h3>
+                    <div class="metric-value" id="metricCars">0</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-calendar-check"></i></div>
+                <div class="metric-info">
+                    <h3>Reservas Activas</h3>
+                    <div class="metric-value" id="metricReservations">0</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-wallet"></i></div>
+                <div class="metric-info">
+                    <h3 id="metricSpendLabel">Gasto Total</h3>
+                    <div class="metric-value" id="metricSpend">$0.00</div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-star"></i></div>
+                <div class="metric-info">
+                    <h3>Puntos Fidelidad</h3>
+                    <div class="metric-value" id="metricPoints">0</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bloques principales -->
+        <div class="dashboard-content">
+            
+            <!-- Columna izquierda: Tabla principal dinámica según rol -->
+            <div class="dashboard-main-col">
+                <div class="dashboard-card">
+                    <h2 class="card-header-title" id="tableTitle">
+                        <i class="fas fa-list"></i> Mis Reservas Recientes
+                    </h2>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr id="tableHeaders">
+                                    <th>ID Reserva</th>
+                                    <th>Vehículo</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Estado</th>
+                                    <th>Monto</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Se carga dinámicamente mediante JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columna derecha: Actividad / Notificaciones o gestión -->
+            <div class="dashboard-side-col">
+                <div class="dashboard-card">
+                    <h2 class="card-header-title">
+                        <i class="fas fa-bell"></i> Notificaciones
+                    </h2>
+                    <ul style="list-style: none; padding: 0;" id="notificationsList">
+                        <!-- Cargado vía JS -->
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Validar sesión simulada en localStorage / sessionStorage
+            const sessionEmail = sessionStorage.getItem('usuario');
+            if (!sessionEmail) {
+                window.location.replace('login-registro.html');
+                return;
+            }
+
+            // Cargar datos de usuario
+            const userKey = 'user_data_' + btoa(unescape(encodeURIComponent(sessionEmail))).replace(/=/g, '');
+            const storedData = JSON.parse(localStorage.getItem(userKey) || '{}');
+            
+            // Asignación de rol simulada (ejemplo: si el correo es admin@santalucia.com o contiene 'admin')
+            const role = (sessionEmail.includes('admin')) ? 'admin' : 'cliente';
+
+            // Mostrar info en pantalla
+            document.getElementById('dashUserDisplay').textContent = storedData.name || sessionEmail;
+            document.getElementById('userRoleBadge').textContent = 'Rol: ' + role.toUpperCase();
+
+            // Renderizar vistas diferenciadas según el ROL
+            if (role === 'admin') {
+                renderAdminDashboard();
+            } else {
+                renderClientDashboard(storedData);
+            }
+
+            // Logout
+            document.getElementById('dashLogoutBtn').addEventListener('click', function() {
+                sessionStorage.removeItem('usuario');
+                window.location.replace('login-registro.html');
+            });
+        });
+
+        function renderClientDashboard(userData) {
+            document.getElementById('metricCars').textContent = '1';
+            document.getElementById('metricReservations').textContent = '2';
+            document.getElementById('metricSpendLabel').textContent = 'Gasto Acumulado';
+            document.getElementById('metricSpend').textContent = '$240.00';
+            document.getElementById('metricPoints').textContent = '120 pts';
+
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = `
+                <tr>
+                    <td>#RES-9021</td>
+                    <td>Nissan Versa</td>
+                    <td>22/09/2026</td>
+                    <td><span class="status-tag status-active">Activa</span></td>
+                    <td>$120.00</td>
+                </tr>
+                <tr>
+                    <td>#RES-8812</td>
+                    <td>Kia Sportage</td>
+                    <td>10/08/2026</td>
+                    <td><span class="status-tag status-completed">Completada</span></td>
+                    <td>$120.00</td>
+                </tr>
+            `;
+
+            document.getElementById('notificationsList').innerHTML = `
+                <li style="margin-bottom: 12px; font-size: 0.9rem; color: #a3a3a3;">
+                    <strong style="color: #fff;">Recordatorio:</strong> Entrega del Nissan Versa el 25/09/2026.
+                </li>
+                <li style="font-size: 0.9rem; color: #a3a3a3;">
+                    <strong style="color: #fff;">Pago Confirmado:</strong> Reserva #RES-9021 procesada con éxito.
+                </li>
+            `;
+        }
+
+        function renderAdminDashboard() {
+            document.getElementById('tableTitle').innerHTML = '<i class="fas fa-tasks"></i> Gestión Global de Flota';
+            document.getElementById('metricCars').textContent = '94';
+            document.getElementById('metricReservations').textContent = '18';
+            document.getElementById('metricSpendLabel').textContent = 'Ingresos del Mes';
+            document.getElementById('metricSpend').textContent = '$12,450.00';
+            document.getElementById('metricPoints').textContent = '98%'; // Eficiencia de flota
+
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = `
+                <tr>
+                    <td>#RES-9021</td>
+                    <td>Juan Pérez (Cliente)</td>
+                    <td>Nissan Versa</td>
+                    <td><span class="status-tag status-active">En Salida</span></td>
+                    <td>$120.00</td>
+                </tr>
+                <tr>
+                    <td>#RES-9022</td>
+                    <td>Maria López (Cliente)</td>
+                    <td>BMW Serie 3</td>
+                    <td><span class="status-tag status-pending">Pendiente</span></td>
+                    <td>$350.00</td>
+                </tr>
+            `;
+
+            document.getElementById('notificationsList').innerHTML = `
+                <li style="margin-bottom: 12px; font-size: 0.9rem; color: #a3a3a3;">
+                    <strong style="color: #fff;">Alerta Mantenimiento:</strong> Coche Kia Sportage (ID: 45) requiere revisión de frenos.
+                </li>
+                <li style="font-size: 0.9rem; color: #a3a3a3;">
+                    <strong style="color: #fff;">Nueva Solicitud:</strong> 3 reservas pendientes de aprobación.
+                </li>
+            `;
+        }
+    </script>
+</body>
+</html>
